@@ -15,7 +15,7 @@ int main() {
 
 	//logic
 	needs = 0.5 * paycheck;
-	wants - 0.3 * paycheck;
+	wants = 0.3 * paycheck;
 	savings = 0.2 * paycheck;
 
 	//reads user input
