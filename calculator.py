@@ -33,7 +33,6 @@ def main():
             num1 = float(input("Enter first number: "))
             num2 = float(input("Enter second number: "))
 
-
             if choice == '1':
                 print("Result", add(num1, num2))
             elif choice == '2': 
@@ -46,12 +45,10 @@ def main():
             print("Invalid input") 
 
 
-    # Ask if the user wants to perform another calculation
-    next_calculation = input("Would you like to perform another calculation? (yes/no): ")
-    if next_calculation.lower() != 'yes':
-        break
-
-
+        # Ask if the user wants to perform another calculation
+        next_calculation = input("Would you like to perform another calculation? (yes/no): ")
+        if next_calculation.lower() != 'yes':
+            break
 
 
 if __name__ == "__main__": 
