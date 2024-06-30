@@ -1,5 +1,4 @@
 #Calculator program 
-
 def add(x, y): 
     return x + y
 
@@ -16,7 +15,6 @@ def divide(x, y):
 
 
 #List of operations 
-
 def main(): 
     
     print("Select operation:")
