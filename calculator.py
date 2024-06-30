@@ -1,4 +1,4 @@
-#Calculator program 
+#Calculator program that takes two numbers only 
 def add(x, y): 
     return x + y
 
