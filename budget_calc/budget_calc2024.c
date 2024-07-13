@@ -63,7 +63,7 @@ int main() {
 	
 	} else {
 		//Edge case
-		printf("Invalid input"); 
+		printf("Invalid input.\n"); 
 	}
 
 	return 0;
