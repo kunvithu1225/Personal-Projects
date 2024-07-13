@@ -47,7 +47,7 @@ int main() {
 
 
 	} else if (strcmp(response, "no") == 0) {
-		printf("Here is the standard budget breakdown: ");
+		printf("___________________________\n");
 
 		//logic
 		savings = 0.5 * paycheck;
