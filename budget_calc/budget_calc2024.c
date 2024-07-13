@@ -21,7 +21,7 @@ int main() {
 	// Confirming user input
 	printf("You entered: $%.2f\n", paycheck);
 	
-	printf("Is this a summer paycheck? (yes/no)");
+	printf("Is this a summer paycheck? (yes/no)\n");
 	scanf("%3s", response);
 
 	//lower-case conversion
