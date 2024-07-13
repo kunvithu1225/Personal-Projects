@@ -30,7 +30,7 @@ int main() {
 	}
 
 	if (strcmp(response, "yes") == 0) {
-		printf("Here is the summer budget breakdown: ");
+		printf("Here is the summer budget breakdown: \n");
 
 		//logic
                 savings = 0.7 * paycheck;
