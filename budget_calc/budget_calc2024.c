@@ -30,7 +30,7 @@ int main() {
 	}
 
 	if (strcmp(response, "yes") == 0) {
-		printf("____________________________\n");
+		printf("___________________________\n");
 
 		//logic
                 savings = 0.7 * paycheck;
@@ -42,7 +42,7 @@ int main() {
                 printf("Savings: $%.2f\n", savings);
                 printf("Checking: $%.2f\n", checking);
                 printf("Investment: $%.2f\n", investment);	
-
+		printf("___________________________\n");
 
 
 
@@ -59,7 +59,7 @@ int main() {
     		printf("Savings: $%.2f\n", savings);
     		printf("Checking: $%.2f\n", checking);
     		printf("Investment: $%.2f\n", investment);
-
+		printf("___________________________\n");
 	
 	} else {
 		//Edge case
