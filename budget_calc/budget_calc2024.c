@@ -29,7 +29,7 @@ int main() {
 		response[i] = tolower(response[i]);
 	}
 
-	if (strcmp(reposnse, "yes") == 0) {
+	if (strcmp(response, "yes") == 0) {
 		printf("Here is the summer budget breakdown: ");
 
 		//logic
