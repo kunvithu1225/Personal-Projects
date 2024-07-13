@@ -8,7 +8,7 @@
 int main() {
 
 	//Declaration of variables
-	float paycheck, needs, wants, savings;
+	float paycheck, investment, checking, savings, response;
 
 
 
@@ -20,7 +20,7 @@ int main() {
 	printf("You entered: paycheck");
 	
 	printf("Is this a summer paycheck? (yes/no)");
-	scanf(%3s, response);
+	scanf("%3s", response);
 
 	//lower-case conversion
 	for (int i = 0; response[i]; i++) {
