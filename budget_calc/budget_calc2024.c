@@ -4,12 +4,14 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+
 
 int main() {
 
 	//Declaration of variables
-	float paycheck, investment, checking, savings, response;
-
+	float paycheck, investment, checking, savings;
+	char response[4]; 
 
 
 	//prompt and user input
@@ -17,7 +19,7 @@ int main() {
 	scanf("%f", &paycheck);
 	
 	// Confirming user input
-	printf("You entered: paycheck");
+	printf("You entered: $%.2f\n", paycheck);
 	
 	printf("Is this a summer paycheck? (yes/no)");
 	scanf("%3s", response);
