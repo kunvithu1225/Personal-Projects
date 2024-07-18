@@ -1,34 +1,20 @@
-
-
 {
-	"questions": [
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "questions": [
+    {
+      "question": "What is your name?",
+      "answer": "My name is Chatbot."
+    },
+    {
+      "question": "How old are you?",
+      "answer": "I am a virtual assistant."
+    },
+    {
+      "question": "Hi",
+      "answer": "Hey there :)"
+    },
+    {
+      "question": "What is the capitol of Cambodia?",
+      "answer": "Phnom Penh"
+    }
+  ]
 }
-
-
