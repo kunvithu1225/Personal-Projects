@@ -1,21 +1,24 @@
-import openai 
+import openai
 
+# Set your OpenAI API key (preferably stored securely, e.g., as an environment variable)
 openai.api_key = "OPENAI_KEY"
 
 def chat_with_gpt(prompt):
-    response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
+    response = openai.Completion.create(
+        engine="davinci-codex",
+        prompt=prompt,
+        max_tokens=150,
+        stop=None
     )
+    
+    return response.choices[0].text.strip()
 
-
-    return response.choice[0].message.content.strip()
-
-if __name__== "__main__": 
-    while True: 
+if __name__ == "__main__":
+    while True:
         user_input = input("You: ")
-        if user_input.lower() in ["quit", "exit", "bye"]: 
+        if user_input.lower() in ["quit", "exit", "bye"]:
             break
-
+        
         response = chat_with_gpt(user_input)
-        print("Chatbot: ", response)
+        print("Chatbot:", response)
+
