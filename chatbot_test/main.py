@@ -1,7 +1,7 @@
 import openai
 
 # Set your OpenAI API key (preferably stored securely, e.g., as an environment variable)
-openai.api_key = ""
+openai.aps_key = "chatbot_key"
 
 def chat_with_gpt(prompt):
     response = openai.Completion.create(
