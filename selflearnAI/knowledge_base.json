@@ -55,6 +55,10 @@
     {
       "question": "How many days in a week",
       "answer": "There are seven days in a week."
+    },
+    {
+      "question": "What is the capitol city of Vietnam",
+      "answer": "Hanoi."
     }
   ]
 }
