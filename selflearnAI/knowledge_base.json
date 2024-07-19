@@ -59,6 +59,16 @@
     {
       "question": "What is the capitol city of Vietnam",
       "answer": "Hanoi."
+    },
+    {
+      "question": "How are you doing today?",
+      "answer": "I am doing well! How may I be of assistance to you today?"
+    },
+    {
+      "question": "How many months are in a year?",
+      "answer": "There are twelve months in a year"
     }
+
+
   ]
 }
