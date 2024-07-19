@@ -15,6 +15,46 @@
     {
       "question": "What is the capitol of Cambodia?",
       "answer": "Phnom Penh"
+    },
+    {
+      "question": "Hello ",
+      "answer": "Hello there! :)"
+    },
+    {
+      "question": "Hi there ",
+      "answer": "Hello! :)"
+    },
+    {
+      "question": "Howdy!",
+      "answer": "Howdy Partner :)"
+    },
+    {
+      "question": "Good morning!",
+      "answer": "Good morning to you as well. How can I be of assistance to you?"
+    },
+    {
+      "question": "Hello :)",
+      "answer": "Hello there :) How can I be of assistance to you?"
+    },
+    {
+      "question": "Goodbye",
+      "answer": "Goodbye. If you would like to end the chat simply type 'quit'"
+    },
+    {
+      "question": "goodbye",
+      "answer": "Goodbye. If you would like to end the chat simply type 'quit'"
+    },
+    {
+      "question": "bye",
+      "answer": "Goodbye. If you would like to end the chat simply type 'quit'"
+    },
+    {
+      "question": "How many days are there in a week?",
+      "answer": "There are seven days in a week."
+    },
+    {
+      "question": "How many days in a week",
+      "answer": "There are seven days in a week."
     }
   ]
 }
