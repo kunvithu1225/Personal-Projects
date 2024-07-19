@@ -12,7 +12,7 @@ public:
 	std::string position;
 	int goalsScored;
 	int assists;
-	int yellowCards
+	int yellowCards;
 	int redCards;
 
 
