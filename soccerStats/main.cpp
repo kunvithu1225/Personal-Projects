@@ -37,7 +37,7 @@ int main() {
 
     // Display team information
     std::cout << "Team Info:" << std::endl;
-    team.displayingTeamInfo();
+    team.displayTeamInfo();
 
     return 0;
 }
