@@ -1,7 +1,7 @@
 // This is a header file that stores information on the player class
 // We will include information like an individual players stats here
 
-#ifdef PLAYER_H
+#ifndef PLAYER_H
 #define PLAYER_H
 
 
