@@ -1,5 +1,5 @@
 // This is a file for the stats of a team. In this file we are using information from player.h 
-#ifdef TEAM_H
+#ifndef TEAM_H
 #define TEAM_H
 
 
