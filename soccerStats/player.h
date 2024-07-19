@@ -20,9 +20,7 @@ public:
 
 
 	Player(const std::string& playerName, const std::string& playerPosition);
-
-	void displayingInfo();
-	
+	void displayingInfo(); const; 
 	void updateStats(int goals, int assists, int yellow, int red); 
 	};
 
