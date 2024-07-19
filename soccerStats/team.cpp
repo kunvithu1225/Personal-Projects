@@ -21,7 +21,7 @@ void Team::displayTeamInfo() {
               << "Players: " << std::endl;
 
     for (const auto& player : players) {
-        player.displayInfo();
+        player.displayingInfo();
         std::cout << std::endl;
     }
 }
