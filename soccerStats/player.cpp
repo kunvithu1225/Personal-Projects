@@ -8,7 +8,7 @@ Player::Player(const std::string& playerName, const std::string& playerPosition)
 
 
 // Function to display player information
-void Player::displayingInfo() {
+void Player::displayingInfo() const {
     std::cout << "Name: " << name << "\n"
               << "Position: " << position << "\n"
               << "Goals Scored: " << goalsScored << "\n"
