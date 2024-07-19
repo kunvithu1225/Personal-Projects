@@ -25,11 +25,11 @@ int main() {
 
     // Display individual player stats
     std::cout << "Player Stats:" << std::endl;
-    player1.displayInfo();
+    player1.displayingInfo();
     std::cout << std::endl;
-    player2.displayInfo();
+    player2.displayingInfo();
     std::cout << std::endl;
-    player3.displayInfo();
+    player3.displayingInfo();
     std::cout << std::endl;
 
     // Update team stats
@@ -37,7 +37,7 @@ int main() {
 
     // Display team information
     std::cout << "Team Info:" << std::endl;
-    team.displayTeamInfo();
+    team.displayingTeamInfo();
 
     return 0;
 }
