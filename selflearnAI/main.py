@@ -1,5 +1,14 @@
 import json 
-from difflib import get_close_matches
+from fuzzywuzzy import process
+import spacy 
+from dotenv import load_dotenv
+import os 
+
+# Loading spaCy model
+nlp = spacy.load('en_core_web_sm')
+
+# Loading environment variables
+load_dotenv()
 
 
 # Loading knowledge from JSON file
