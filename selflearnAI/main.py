@@ -13,21 +13,27 @@ load_dotenv()
 
 # Loading knowledge from JSON file
 def load_knowledge_base(file_path: str) -> dict:
-    with open(file_path, 'r') as file:
-        data: dict = json.load(file)
-    return data 
+    try:
+        with open(file_path, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {"questions": []}
+    except json.JSONDecodeError:
+        return {"questions": []}
 
 
 # Saving knowledge base to a JSON file 
-def save_knowledge_base(file_path: str, data: dict):
-    with open(file_path, 'w') as file: 
+def save_knowledge_base(file_path: str, data: dict):    
+    with open(file_path, 'w') as file:
         json.dump(data, file, indent=2)
 
 
 # Finding best match from the users question
 def find_best_match(user_question: str, questions: list[str]) -> str | None:
-    matches: list = get_close_matches(user_question, questions, n=1, cutoff=0.7)
-    return matches[0] if matches else None
+    best_match, score = process.extractOne(user_question, questions)
+    return best_match if score >= 70 else None
+
+
 
 
 # Getting answer for a matched question
@@ -35,37 +41,47 @@ def get_answer_for_question(question: str, knowledge_base: dict) -> str | None:
     for q in knowledge_base["questions"]:
         if q["question"] == question: 
             return q["answer"]
+    return None
+
+
+# Idk what this is but it was part of the new NLP?
+def preprocess_text(text: str) -> str: 
+    doc = nlp(text)
+    return ' '.join(token.lemma_ for token in doc if not token.is_stop)
+
 
 
 
 # Main function
-def chatbot(): 
-    knowledge_base: dict = load_knowledge_base('knowledge_base.json')
+def chatbot():
+    knowledge_base_file = os.getenv('KNOWLEDGE_BASE_FILE', 'knowledge_base.json')
+    knowledge_base = load_knowledge_base(knowledge_base_file)
+    questions = [q["question"] for q in knowledge_base["questions"]]  # Load questions once
 
-    while True: 
-        user_input: str = input('You: ')
+    while True:
+        user_input = input('You: ')
 
         if user_input.lower() == 'quit':
             break
 
-        best_match: str | None = find_best_match(user_input, [q["question"] for q in knowledge_base["questions"]])
+        # Preprocess user input
+        preprocessed_input = preprocess_text(user_input)
 
-        if best_match: 
-            answer: str = get_answer_for_question(best_match, knowledge_base)
+        best_match = find_best_match(preprocessed_input, questions)
+
+        if best_match:
+            answer = get_answer_for_question(best_match, knowledge_base)
             print(f'Bot: {answer}')
-        else: 
+        else:
             print('Bot: I don\'t know the answer. Can you teach me?')
-            new_answer: str = input('Type the answer or "skip" to skip: ')
+            new_answer = input('Type the answer or "skip" to skip: ')
 
-            if new_answer.lower() != 'skip': 
+            if new_answer.lower() != 'skip':
                 knowledge_base["questions"].append({"question": user_input, "answer": new_answer})
-                save_knowledge_base('knowledge_base.json', knowledge_base)
+                questions.append(user_input)  # Update the questions list
+                save_knowledge_base(knowledge_base_file, knowledge_base)
                 print('Bot: Thank you! I learned a new response!')
 
-
-
-if __name__ == '__main__': 
+if __name__ == '__main__':
     chatbot()
-
-
 
