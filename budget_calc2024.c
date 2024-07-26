@@ -1,6 +1,5 @@
 //This is a budget calculator used to manage finances 
 //Update made on July 13, 2024
-// testing
 
 #include <stdio.h>
 #include <string.h>
