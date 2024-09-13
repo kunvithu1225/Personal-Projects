@@ -1,6 +1,5 @@
 // This is a gas calculator that takes away the daunting nature of calculating how much you have to pay your friend for gas < I see this as an informal uber that you use amongst friends >
-// test
-
+// test 2
 
 #include <stdio.h>
 #include <string.h>
