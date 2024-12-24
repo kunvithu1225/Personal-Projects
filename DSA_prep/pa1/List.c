@@ -20,7 +20,7 @@ struct ListObj {
 };
 
 
-// Creating a new list
+// CONSTRUCTOR: Creating a new list
 List newList(void) {
     List L = malloc(sizeof(struct ListObj));
     L->front = NULL;
@@ -32,4 +32,17 @@ List newList(void) {
 }
 
 
-// Freeing the list
+// DESTRUCTOR: Freeing the list
+void freeList(List* pL) {
+    if (pL != NULL && *pL != NULL) {
+        // Freeing all nodes 
+        Node current = (*pL)->front;
+        while (current != NULL) {
+            Node temp = current;
+            current = current->next;
+            free(temp);
+        }
+        free(*pL);
+        *pL = NULL;
+    }
+}
