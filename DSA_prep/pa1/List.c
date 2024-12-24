@@ -46,3 +46,11 @@ void freeList(List* pL) {
         *pL = NULL;
     }
 }
+
+
+// ** ACCESS FUNCTIONS **
+
+// returns the number of elements in the list
+int length (List L) {
+    return L->length;
+}
