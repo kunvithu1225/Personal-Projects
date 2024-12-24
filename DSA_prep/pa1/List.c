@@ -18,3 +18,18 @@ struct ListObj {
     int index; // stored index of node currently under cursor
     // ** if cursor is undef, we set to -1
 };
+
+
+// Creating a new list
+List newList(void) {
+    List L = malloc(sizeof(struct ListObj));
+    L->front = NULL;
+    L->back = NULL; 
+    L->cursor = NULL;
+    L->length = 0; 
+    L->index = -1;
+    return L;
+}
+
+
+// Freeing the list
