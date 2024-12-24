@@ -1,1 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "List.h"
 
+// Node structure
+struct NodeObj {
+    int data; // in order to store current value 
+    Node prev; // to traverse backwards
+    Node next; // to traverse forwards
+};
+
+// List structure
+struct ListObj {
+    Node front; // used to go to the first node in the list 
+    Node back; // used to go to the last node in the list
+    Node cursor; // pointer to "current" node in list 
+    int length; // stores number of nodes in the list
+    int index; // stored index of node currently under cursor
+    // ** if cursor is undef, we set to -1
+};
