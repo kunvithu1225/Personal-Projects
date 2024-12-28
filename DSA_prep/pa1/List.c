@@ -60,6 +60,7 @@ int index (List L) {
     return L->index;
 }
 
+// returns front element of L
 int front (List L) {
     // Checking validity of list
     if (L == NULL || L->length == 0) {
@@ -72,6 +73,7 @@ int front (List L) {
     return L->front->data;
 }
 
+// returns back element of L 
 int back (List L) {
     // Checking validity 
     if (L == NULL || L->length == 0) {
@@ -82,4 +84,8 @@ int back (List L) {
     L->cursor = L->back;
     L->index = L->length -1; // Setting index to -1 (last element of list)
     return L->back->data;
+}
+
+int get (List L) {
+    // working 
 }
