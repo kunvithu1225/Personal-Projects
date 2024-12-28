@@ -54,3 +54,20 @@ void freeList(List* pL) {
 int length (List L) {
     return L->length;
 }
+
+// returns the current position that the index is on
+int index (List L) {
+    return L->index;
+}
+
+int front (List L) {
+    // Checking validity of list
+    if (L == NULL || L->length == 0) {
+        fprintf(stderr, "List Error: calling front() on NULL or empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    // Positioning cursor to front
+    L->cursor = L->front; 
+    L->index = 0; // Setting idex to 0
+    return L->front->data;
+}
