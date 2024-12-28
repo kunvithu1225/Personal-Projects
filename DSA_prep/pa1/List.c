@@ -71,3 +71,15 @@ int front (List L) {
     L->index = 0; // Setting idex to 0
     return L->front->data;
 }
+
+int back (List L) {
+    // Checking validity 
+    if (L == NULL || L->length == 0) {
+        fprintf(stderr, "List Error: calling back on NULL or empty List\n");
+        exit(EXIT_FAILURE);
+    }
+    // Positioining cursor to back of list
+    L->cursor = L->back;
+    L->index = L->length -1; // Setting index to -1 (last element of list)
+    return L->back->data;
+}
