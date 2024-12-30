@@ -87,5 +87,9 @@ int back (List L) {
 }
 
 int get (List L) {
-    // working 
+    if (L == NULL || L->length == 0 || L->cursor == NULL || L->index < 0) {
+        fprintf(stderr, "List Error: calling get() on undefined cursor or invalid List\n");
+        exit(EXIT_FAILURE);
+    }
+    return L->cursor->data;
 }
