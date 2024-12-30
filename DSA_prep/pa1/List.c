@@ -86,10 +86,52 @@ int back (List L) {
     return L->back->data;
 }
 
+// returns cursor element of L
 int get (List L) {
     if (L == NULL || L->length == 0 || L->cursor == NULL || L->index < 0) {
         fprintf(stderr, "List Error: calling get() on undefined cursor or invalid List\n");
         exit(EXIT_FAILURE);
     }
     return L->cursor->data;
+}
+
+
+
+
+// Returns true iff Lists A and B contain the same
+// sequence of elements, returns false otherwise.
+bool equals(List A, List B) {
+    // Checking if both lists are the same object
+    if (A == B) {
+        return true;
+    }
+    
+    // checking if either list is NULL
+    if (A == NULL || B == NULL) {
+        return false;
+    }
+
+    // checking if lenths are different
+    if (A->length != B->length) {
+        return false;
+    }
+
+    // Comparing elements node by node
+
+    // Initializes to front of the node
+    Node nodeA = A->front;
+    Node nodeB = B->front;
+
+    // iterating throygh nodes given conditions
+    while (nodeA != NULL && nodeB != NULL) {
+        if (nodeA->data != nodeB->data) {
+            return false;
+        }
+        // after conditionals, we iterate and progress the list
+        nodeA = nodeA->next;
+        nodeB = nodeB->next;
+    }
+
+    // passes above conditions and lists are identical
+    return true;
 }
