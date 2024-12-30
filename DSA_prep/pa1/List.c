@@ -135,3 +135,11 @@ bool equals(List A, List B) {
     // passes above conditions and lists are identical
     return true;
 }
+
+
+// ** MANIPULATION PROCEDURES **
+
+// Resets L to its original empty state.
+void clear(List L) {
+    // working on this
+}
