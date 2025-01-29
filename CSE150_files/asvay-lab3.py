@@ -22,13 +22,13 @@ class MyTopology(Topo):
         heater = self.addHost('h4', ip='10.1.20.2')
 
         # ✅ Adding links between devices and switches
-        self.addLink(laptop, switch1, delay='10ms')
-        self.addLink(ipad, switch1, delay='10ms')
-        self.addLink(lights, switch2, delay='10ms')
-        self.addLink(heater, switch2, delay='10ms')
+        self.addLink(laptop, switch1, delay='40ms')
+        self.addLink(ipad, switch1, delay='40ms')
+        self.addLink(lights, switch2, delay='40ms')
+        self.addLink(heater, switch2, delay='40ms')
 
         # ✅ Linking the two switches
-        self.addLink(switch1, switch2, delay='10ms')
+        self.addLink(switch1, switch2, delay='40ms')
 
 
 if __name__ == '__main__':
