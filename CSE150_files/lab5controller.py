@@ -24,6 +24,17 @@ class Firewall(object):
         Implements the firewall logic for each incoming packet.
         """
 
+        # Step 1: Allow ALL ARP (Fixes Packet Loss)
+        if packet.find('arp'):
+            log.info("🔥 Allowing ARP Traffic")
+            msg = of.ofp_flow_mod()
+            msg.match = of.ofp_match.from_packet(packet_in)
+            msg.idle_timeout = 60
+            msg.hard_timeout = 300
+            msg.actions.append(of.ofp_action_output(port=of.OFPP_FLOOD))  # Flood ARP packets
+            self.connection.send(msg)
+            return  # Skip further processing
+
         ip_packet = packet.find('ipv4')  # Extract IP layer
         if ip_packet is None:
             return  # Ignore non-IP packets
@@ -39,47 +50,51 @@ class Firewall(object):
             protocol = "UDP"
         elif packet.find('icmp'):
             protocol = "ICMP"
-        elif packet.find('arp'):
-            protocol = "ARP"
 
-        # Firewall Rules Based on Table 2
-
-        # Rule #1 & Rule #2: Allow ARP & ICMP (Must be implemented first)
-        if protocol in ["ARP", "ICMP"]:
+        #  Step 2: Allow ICMP (Ping)
+        if protocol == "ICMP":
+            log.info("Allowing ICMP Traffic (Ping)")
             self.accept(packet_in)
             return
 
-        # Rule #3: Web Traffic (Allow TCP between Laptop <-> iPad)
+        # Step 3: Web Traffic (Allow TCP between Laptop <-> iPad)
         if protocol == "TCP" and (
-            (src == "laptop" and dst == "iPad") or
-            (src == "iPad" and dst == "laptop")
+            (src == "10.1.1.2" and dst == "10.1.1.1") or  # Laptop → iPad
+            (src == "10.1.1.1" and dst == "10.1.1.2")     # iPad → Laptop
         ):
+            log.info("Allowing Web Traffic: Laptop <-> iPad (TCP)")
             self.accept(packet_in)
             return
 
-        # Rule #4: IoT Traffic
+        # Step 4: IoT Traffic (Allow UDP between Heater <-> Lights)
         if protocol == "UDP" and (
-            (src == "heater" and dst == "lights") or
-            (src == "iPad" and dst in ["lights", "heater"])
+            (src == "10.1.20.2" and dst == "10.1.20.1") or  # Heater → Lights
+            (src == "10.1.20.1" and dst == "10.1.20.2")     # Lights → Heater
         ):
+            log.info(" Allowing IoT Traffic: Heater <-> Lights (UDP)")
             self.accept(packet_in)
             return
 
+        #  Step 5: Allow TCP between iPad <-> IoT (Heater/Lights)
         if protocol == "TCP" and (
-            (src == "iPad" and dst in ["lights", "heater"])
+            (src == "10.1.1.1" and dst in ["10.1.20.1", "10.1.20.2"]) or  # iPad → IoT
+            (src in ["10.1.20.1", "10.1.20.2"] and dst == "10.1.1.1")     # IoT → iPad
         ):
+            log.info(" Allowing TCP Traffic: iPad <-> IoT")
             self.accept(packet_in)
             return
 
-        # Rule #5: Laptop/iPad General Management (Allow UDP between Laptop <-> iPad)
+        #  Step 6: Laptop/iPad General Management (Allow UDP)
         if protocol == "UDP" and (
-            (src == "laptop" and dst == "iPad") or
-            (src == "iPad" and dst == "laptop")
+            (src == "10.1.1.2" and dst == "10.1.1.1") or  # Laptop → iPad
+            (src == "10.1.1.1" and dst == "10.1.1.2")     # iPad → Laptop
         ):
+            log.info(" Allowing UDP Traffic: Laptop <-> iPad")
             self.accept(packet_in)
             return
 
-        # Default Deny Rule (Drop all other traffic)
+        #  Default Deny Rule (Drop all other traffic)
+        log.warning(" Dropping Packet: %s -> %s (%s)" % (src, dst, protocol))
         self.drop(packet_in)
 
     def accept(self, packet_in):
@@ -92,7 +107,7 @@ class Firewall(object):
         msg.hard_timeout = 300  # Rule expires after 5 minutes
         msg.actions.append(of.ofp_action_output(port=of.OFPP_NORMAL))  # Forward normally
         self.connection.send(msg)
-        log.info("Packet Accepted - Flow Installed")
+        log.info(" Packet Accepted - Flow Installed")
 
     def drop(self, packet_in):
         """
@@ -101,7 +116,7 @@ class Firewall(object):
         msg = of.ofp_flow_mod()
         msg.match = of.ofp_match.from_packet(packet_in)
         self.connection.send(msg)
-        log.info("Packet Dropped - Flow Installed")
+        log.info(" Packet Dropped - Flow Installed")
 
     def _handle_PacketIn(self, event):
         """
@@ -125,4 +140,3 @@ def launch():
         Firewall(event.connection)
 
     core.openflow.addListenerByName("ConnectionUp", start_switch)
-
