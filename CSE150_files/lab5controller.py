@@ -26,11 +26,9 @@ class Firewall(object):
 
         # Step 1: Allow ALL ARP (Fixes Packet Loss)
         if packet.find('arp'):
-            log.info("🔥 Allowing ARP Traffic")
-            msg = of.ofp_flow_mod()
-            msg.match = of.ofp_match.from_packet(packet_in)
-            msg.idle_timeout = 60
-            msg.hard_timeout = 300
+            log.info("Allowing ARP Traffic")
+            msg = of.ofp_packet_out()
+            msg.data = packet_in
             msg.actions.append(of.ofp_action_output(port=of.OFPP_FLOOD))  # Flood ARP packets
             self.connection.send(msg)
             return  # Skip further processing
