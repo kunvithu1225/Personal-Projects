@@ -52,8 +52,14 @@ class Firewall(object):
         #  Step 2: Allow ICMP (Ping)
         if protocol == "ICMP":
             log.info("Allowing ICMP Traffic (Ping)")
-            self.accept(packet_in)
+            msg = of.ofp_flow_mod()
+            msg.match = of.ofp_match.from_packet(packet_in)
+            msg.idle_timeout = 60
+            msg.hard_timeout = 300
+            msg.actions.append(of.ofp_action_output(port=of.OFPP_NORMAL))  # Forward ICMP packets
+            self.connection.send(msg)
             return
+
 
         # Step 3: Web Traffic (Allow TCP between Laptop <-> iPad)
         if protocol == "TCP" and (
