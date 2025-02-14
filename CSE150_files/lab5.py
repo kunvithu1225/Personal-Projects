@@ -34,7 +34,7 @@ def run():
     net = Mininet(topo=CustomTopo(), switch=OVSSwitch, controller=None)
 
     # Add the POX Controller (Ensure port matches POX settings)
-    controller = net.addController('c0', controller=RemoteController, ip='127.0.0.1', port=6633)
+    controller = net.addController('c0', controller=RemoteController, ip='127.0.0.1',port=6633)
 
     net.start()
     print("\nNetwork is up and running. You can now run tests.\n")
