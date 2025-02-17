@@ -80,6 +80,19 @@ class MyTopology(Topo):
     self.addLink(guest, s5)
 
 
+                    # CORE ROUTER SWITCH
+                    
+    # Switch 6 is new Core Router!
+    s6 = self.addSwitch('s6')
+
+    # Setting all department switches to be connected to s6 (core router)
+    self.addLink(s1, s6)  # University Data Center X Core Router
+    self.addLink(s2, s6)  # IT Department X Core Router
+    self.addLink(s3, s6)  # Faculty LAN X Core Router
+    self.addLink(s4, s6)  # Student Housing X Core Router
+    self.addLink(s5, s6)  # Internet X Core Router
+    
+
 
 
 if __name__ == '__main__':
