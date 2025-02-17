@@ -19,14 +19,14 @@ class MyTopology(Topo):
     dnsServer = self.addHost('dnsServer', ip='169.233.2.3/24', mac="00:00:00:00:10:03")
 
     # IT Department LAN
-    itWS = self.addHost('itWS', ip='169.233.1.10/24', mac="00:00:00:00:02:01")
-    itBackup = self.addHost('itBackup', ip='169.233.1.30/24', mac="00:00:00:00:02:02")
-    itPC = self.addHost('itPC', ip='169.233.1.20', mac="00:00:00:00:2:03")
+    itWS = self.addHost('itWS', ip='169.233.1.10/24', mac="00:00:00:00:02:01", defaultRoute="itWS-eth0")
+    itBackup = self.addHost('itBackup', ip='169.233.1.30/24', mac="00:00:00:00:02:02", defaultRoute="itBackup-eth0")
+    itPC = self.addHost('itPC', ip='169.233.1.20', mac="00:00:00:00:2:03", defaultRoute="itPC-eth0")
 
     # faculty LAN /24
     facultyWS = self.addHost('facultyWS', ip='169.233.3.10/24', mac="00:00:00:00:01:01")
-    printer = self.addHost('printer', ip='169.233.3.30/24', mac="00:00:00:00:01:02")
-    facultyPC = self.addHost('facultyPC', ip='169.233.3.30/24', mac="00:00:00:00:01:03")
+    printer = self.addHost('printer', ip='169.233.3.30/24', mac="00:00:00:00:01:02", defaultRoute="printer-eth0")
+    facultyPC = self.addHost('facultyPC', ip='169.233.3.30/24', mac="00:00:00:00:01:03", defaultRoute="facultyPC-eth0")
 
     # student housing LAN /24
     studentPC1 = self.addHost('studentPC1', ip='169.233.4.1/24', mac="00:00:00:00:03:01")
@@ -35,19 +35,19 @@ class MyTopology(Topo):
 
     # Internet
     # No subnet mask in the pdf? /24 or /32
-    trustedPC1 = self.addHost('trustedPC1', ip='212.26.59.102', mac="00:00:00:00:04:01")
-    trustedPC2 = self.addHost('trustedPC2', ip='10.100.198.6', mac="00:00:00:00:04:02")
-    guest = self.addHost('guest', ip='10.100.198.10', mac="00:00:00:00:05:01")
+    trustedPC1 = self.addHost('trustedPC1', ip='212.26.59.102', mac="00:00:00:00:04:01", defaultRoute="trustedPC1-eth0")
+    trustedPC2 = self.addHost('trustedPC2', ip='10.100.198.6', mac="00:00:00:00:04:02", defaultRoute="trustedPC2-eth0")
+    guest = self.addHost('guest', ip='10.100.198.10', mac="00:00:00:00:05:01", defaultRoute="guest-eth0")
 
     
                     # ADDING SWITCHES #
     
     # switch1 = self.addSwitch('s1') 
-    s1 = self.addSwitch('s1'); # -> Faculty LAN
-    s2 = self.addSwitch('s2'); # -> Student Housing LAN
-    s3 = self.addSwitch('s3'); # -> IT Department LAN
-    s4 = self.addSwitch('s4'); # -> University Data Center
-    s5 = self.addSwitch('s5'); # -> Core Switch
+    s1 = self.addSwitch('s1'); # -> Univeristy Data Center
+    s2 = self.addSwitch('s2'); # -> IT Department LAN
+    s3 = self.addSwitch('s3'); # -> Faculty LAN
+    s4 = self.addSwitch('s4'); # -> Student Housing LAN
+    s5 = self.addSwitch('s5'); # -> Internet 
 
     # self.addLink(laptop1, switch1, port1=1, port2=2)
 
