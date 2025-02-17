@@ -49,7 +49,36 @@ class MyTopology(Topo):
     s4 = self.addSwitch('s4'); # -> Student Housing LAN
     s5 = self.addSwitch('s5'); # -> Internet   
 
+
+
+                # CONNECTING HOSTS TO SWITCHES
     # self.addLink(laptop1, switch1, port1=1, port2=2)
+
+    # University Data Center (switch 1)
+    self.addLink(examServer, s1)
+    self.addLink(webServer, s1)
+    self.addLink(dnsServer, s1)
+
+    # IT Department Hosts (switch 2)
+    self.addLink(itWS, s2)
+    self.addLink(itBackup, s2)
+    self.addLink(itPC, s2)
+
+    # Faculty LAN Hosts (switch 3)
+    self.addLink(facultyWS, s3)
+    self.addLink(printer, s3)
+    self.addLink(facultyPC, s3)
+
+    # Student Housing Hosts (switch 4)
+    self.addLink(studentPC1, s4)
+    self.addLink(studentPC2, s4)
+    self.addLink(labWS, s4)
+
+    # Internet Hosts (switch 5)
+    self.addLink(trustedPC1, s5)
+    self.addLink(trustedPC2, s5)
+    self.addLink(guest, s5)
+
 
 
 
