@@ -83,11 +83,6 @@ class Routing (object):
 
 
     # Rule 2: TCP Traffic Restrictions
-    if protocol == "TCP":
-        # Extract source and destination subnets
-        src_subnet = ".".join(src_ip.split(".")[:3])
-        dst_subnet = ".".join(dst_ip.split(".")[:3])
-
         allowed_tcp = [
             ("169.233.2", "169.233.1"),  # University Data Center ↔ IT
             ("169.233.2", "169.233.3"),  # University Data Center ↔ Faculty
@@ -96,17 +91,15 @@ class Routing (object):
         ]
 
         # Faculty LAN is the only group allowed to access Exam Server
-        if dst_ip == "169.233.2.1" and src_subnet != "169.233.3":
-            log.warning(f"Blocking TCP access to Exam Server from {src_ip}")
-            return
-
-        # Allow TCP only if it meets defined criteria
-        if src_subnet == dst_subnet or (src_subnet, dst_subnet) in allowed_tcp or (dst_subnet, src_subnet) in allowed_tcp:
-            log.info(f"Allowing TCP {src_ip} -> {dst_ip}")
-            self.forward_packet(event, out_port)
-        else:
-            log.warning(f"Blocking TCP {src_ip} -> {dst_ip}")
-        return
+        if protocol == "TCP":
+            if dst_ip == "169.233.2.1" and src_subnet != "169.233.3":
+                log.warning(f"Blocking TCP access to Exam Server from {src_ip}")
+            # Allow TCP only if it meets defined criteria
+            elif src_subnet == dst_subnet or (src_subnet, dst_subnet) in allowed_tcp or (dst_subnet, src_subnet) in allowed_tcp:
+                log.info(f"Allowing TCP {src_ip} -> {dst_ip}")
+                self.forward_packet(event, self.get_out_port(event, dst_ip))
+            else:
+                log.warning(f"Blocking TCP {src_ip} -> {dst_ip}")
 
     # Rule 3: UDP Traffic Restrictions
     # Rule 4: Guest Can Use the Printer
