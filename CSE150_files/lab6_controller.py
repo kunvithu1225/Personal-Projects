@@ -101,7 +101,22 @@ class Routing (object):
             else:
                 log.warning(f"Blocking TCP {src_ip} -> {dst_ip}")
 
+
     # Rule 3: UDP Traffic Restrictions
+    allowed_udp = [
+        ("169.233.2", "169.233.1"),  # University Data Center ↔ IT
+        ("169.233.2", "169.233.3"),  # University Data Center ↔ Faculty
+        ("169.233.2", "169.233.4"),  # University Data Center ↔ Student Housing
+    ]
+    
+    if protocol == "UDP":
+       if src_subnet == dst_subnet or (src_subnet, dst_subnet) in allowed_udp or (dst_subnet, src_subnet) in allowed_udp:
+        log.info(f"Allowing UDP {src_ip} -> {dst_ip}")
+        self.forward_packet(event, self.get_out_port(event, dst_ip))
+    else:
+        log.warning(f"Blocking UDP {src_ip} -> {dst_ip}")
+    return
+
     # Rule 4: Guest Can Use the Printer
     # Rule 5: Default Deny (Drop All Other Traffic)
 
