@@ -7,6 +7,8 @@ from mininet.node import RemoteController
 class MyTopology(Topo):
   def __init__(self):
     Topo.__init__(self)
+
+
    
                     # ADDING HOSTS #
 
@@ -40,6 +42,8 @@ class MyTopology(Topo):
     guest = self.addHost('guest', ip='10.100.198.10/24', mac="00:00:00:00:05:01", defaultRoute="guest-eth0")
 
     
+
+
                     # ADDING SWITCHES #
     
     # switch1 = self.addSwitch('s1') 
@@ -48,6 +52,8 @@ class MyTopology(Topo):
     s3 = self.addSwitch('s3'); # -> Faculty LAN
     s4 = self.addSwitch('s4'); # -> Student Housing LAN
     s5 = self.addSwitch('s5'); # -> Internet   
+
+
 
 
 
@@ -80,8 +86,11 @@ class MyTopology(Topo):
     self.addLink(guest, s5)
 
 
+
+
+
                     # CORE ROUTER SWITCH
-                    
+
     # Switch 6 is new Core Router!
     s6 = self.addSwitch('s6')
 
@@ -92,6 +101,9 @@ class MyTopology(Topo):
     self.addLink(s4, s6)  # Student Housing X Core Router
     self.addLink(s5, s6)  # Internet X Core Router
     
+
+
+
 
 
 
