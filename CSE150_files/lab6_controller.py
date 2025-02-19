@@ -40,7 +40,7 @@ class Routing(object):
         self.do_routing(packet, packet_in, event.port, event.dpid)
 
 
-        # Allowing ARP Traffic to Fix Packet Loss
+        # Allowing ARP Traffic to Fix Packet Losses
         if packet.find('arp'):
             log.info("Allowing ARP Traffic")
             self.forward_packet(event, of.OFFP_FLOOD)
