@@ -39,6 +39,14 @@ class Routing(object):
         packet_in = event.ofp  # OpenFlow packet message
         self.do_routing(packet, packet_in, event.port, event.dpid)
 
+
+        # Allowing ARP Traffic to Fix Packet Loss
+        if packet.find('arp'):
+            log.info("Allowing ARP Traffic")
+            self.forward_packet(event, of.OFFP_FLOOD)
+            return 
+
+
         # Extract IPv4 addresses
         ip_packet = packet.find('ipv4')
         if ip_packet is None:
