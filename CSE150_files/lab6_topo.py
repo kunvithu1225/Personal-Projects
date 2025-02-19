@@ -8,6 +8,17 @@ class MyTopology(Topo):
   def __init__(self):
     Topo.__init__(self)
 
+                  # CORE ROUTER SWITCH
+
+    # Switch 6 is new Core Router!
+    s6 = self.addSwitch('s6')
+
+    # Setting all department switches to be connected to s6 (core router)
+    self.addLink(s1, s6)  # University Data Center X Core Router
+    self.addLink(s2, s6)  # IT Department X Core Router
+    self.addLink(s3, s6)  # Faculty LAN X Core Router
+    self.addLink(s4, s6)  # Student Housing X Core Router
+    self.addLink(s5, s6)  # Internet X Core Router
 
    
                     # ADDING HOSTS #
@@ -41,8 +52,6 @@ class MyTopology(Topo):
     trustedPC2 = self.addHost('trustedPC2', ip='10.100.198.6/24', mac="00:00:00:00:04:02", defaultRoute="trustedPC2-eth0")
     guest = self.addHost('guest', ip='10.100.198.10/24', mac="00:00:00:00:05:01", defaultRoute="guest-eth0")
 
-    
-
 
                     # ADDING SWITCHES #
     
@@ -54,53 +63,33 @@ class MyTopology(Topo):
     s5 = self.addSwitch('s5'); # -> Internet   
 
 
-
-
-
                 # CONNECTING HOSTS TO SWITCHES
-    # self.addLink(laptop1, switch1, port1=1, port2=2)
 
-    # University Data Center (switch 1)
-    self.addLink(examServer, s1)
-    self.addLink(webServer, s1)
-    self.addLink(dnsServer, s1)
+    # University Data Center (Switch S1)
+    self.addLink(examServer, s1, port1=0, port2=1)  # examServer-eth0 <--> s1-eth1
+    self.addLink(webServer, s1, port1=0, port2=2)  # webServer-eth0 <--> s1-eth2
+    self.addLink(dnsServer, s1, port1=0, port2=3)  # dnsServer-eth0 <--> s1-eth3
 
-    # IT Department Hosts (switch 2)
-    self.addLink(itWS, s2)
-    self.addLink(itBackup, s2)
-    self.addLink(itPC, s2)
+    # IT Department Hosts (Switch S2)
+    self.addLink(itWS, s2, port1=0, port2=1)  # itWS-eth0 <--> s2-eth1
+    self.addLink(itBackup, s2, port1=0, port2=2)  # itBackup-eth0 <--> s2-eth2
+    self.addLink(itPC, s2, port1=0, port2=3)  # itPC-eth0 <--> s2-eth3
 
-    # Faculty LAN Hosts (switch 3)
-    self.addLink(facultyWS, s3)
-    self.addLink(printer, s3)
-    self.addLink(facultyPC, s3)
+    # Faculty LAN Hosts (Switch S3)
+    self.addLink(facultyWS, s3, port1=0, port2=1)  # facultyWS-eth0 <--> s3-eth1
+    self.addLink(printer, s3, port1=0, port2=2)  # printer-eth0 <--> s3-eth2
+    self.addLink(facultyPC, s3, port1=0, port2=3)  # facultyPC-eth0 <--> s3-eth3
 
-    # Student Housing Hosts (switch 4)
-    self.addLink(studentPC1, s4)
-    self.addLink(studentPC2, s4)
-    self.addLink(labWS, s4)
+    # Student Housing Hosts (Switch S4)
+    self.addLink(studentPC1, s4, port1=0, port2=1)  # studentPC1-eth0 <--> s4-eth1
+    self.addLink(studentPC2, s4, port1=0, port2=2)  # studentPC2-eth0 <--> s4-eth2
+    self.addLink(labWS, s4, port1=0, port2=3)  # labWS-eth0 <--> s4-eth3
 
-    # Internet Hosts (switch 5)
-    self.addLink(trustedPC1, s5)
-    self.addLink(trustedPC2, s5)
-    self.addLink(guest, s5)
+    # Internet Hosts (Switch S5)
+    self.addLink(trustedPC1, s5, port1=0, port2=1)  # trustedPC1-eth0 <--> s5-eth1
+    self.addLink(trustedPC2, s5, port1=0, port2=2)  # trustedPC2-eth0 <--> s5-eth2
+    self.addLink(guest, s5, port1=0, port2=3)  # guest-eth0 <--> s5-eth3
 
-
-
-
-
-                    # CORE ROUTER SWITCH
-
-    # Switch 6 is new Core Router!
-    s6 = self.addSwitch('s6')
-
-    # Setting all department switches to be connected to s6 (core router)
-    self.addLink(s1, s6)  # University Data Center X Core Router
-    self.addLink(s2, s6)  # IT Department X Core Router
-    self.addLink(s3, s6)  # Faculty LAN X Core Router
-    self.addLink(s4, s6)  # Student Housing X Core Router
-    self.addLink(s5, s6)  # Internet X Core Router
-    
 
 
 
