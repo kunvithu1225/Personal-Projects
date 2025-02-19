@@ -27,10 +27,10 @@ class MyTopology(Topo):
     # MAC address: subnet identfier ->(XX) , Last octet ->(YY)
 
     # University Data Center /24
-    examServer = self.addHost('examServer', ip='169.233.2.1/24', mac="00:00:00:00:10:01")
-    webServer = self.addHost('webServer', ip='169.233.2.2/24', mac="00:00:00:00:10:02")
-    dnsServer = self.addHost('dnsServer', ip='169.233.2.3/24', mac="00:00:00:00:10:03")
-
+    examServer = self.addHost('examServer', ip='169.233.2.1/24', mac="00:00:00:00:10:01", defaultRoute="examServer-eth0")
+    webServer = self.addHost('webServer', ip='169.233.2.2/24', mac="00:00:00:00:10:02", defaultRoute="webServer-eth0")
+    dnsServer = self.addHost('dnsServer', ip='169.233.2.3/24', mac="00:00:00:00:10:03", defaultRoute="dnsServer-eth0")
+    
     # IT Department LAN
     itWS = self.addHost('itWS', ip='169.233.1.10/24', mac="00:00:00:00:02:01", defaultRoute="itWS-eth0")
     itBackup = self.addHost('itBackup', ip='169.233.1.30/24', mac="00:00:00:00:02:02", defaultRoute="itBackup-eth0")
@@ -41,10 +41,10 @@ class MyTopology(Topo):
     printer = self.addHost('printer', ip='169.233.3.30/24', mac="00:00:00:00:01:02", defaultRoute="printer-eth0")
     facultyPC = self.addHost('facultyPC', ip='169.233.3.40/24', mac="00:00:00:00:01:03", defaultRoute="facultyPC-eth0")
 
-    # student housing LAN /24
-    studentPC1 = self.addHost('studentPC1', ip='169.233.4.1/24', mac="00:00:00:00:03:01")
-    studentPC2 = self.addHost('studentPC2', ip='169.233.4.2/24', mac="00:00:00:00:03:02")
-    labWS = self.addHost('labWS', ip='169.233.4.3/24', mac="00:00:00:00:03:03")
+    # Student Housing LAN /24
+    studentPC1 = self.addHost('studentPC1', ip='169.233.4.1/24', mac="00:00:00:00:03:01", defaultRoute="studentPC1-eth0")
+    studentPC2 = self.addHost('studentPC2', ip='169.233.4.2/24', mac="00:00:00:00:03:02", defaultRoute="studentPC2-eth0")
+    labWS = self.addHost('labWS', ip='169.233.4.3/24', mac="00:00:00:00:03:03", defaultRoute="labWS-eth0")
 
     # Internet
     # No subnet mask in the pdf? /24 or /32
