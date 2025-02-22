@@ -27,12 +27,13 @@ class Routing(object):
         return routing_table.get(dst_subnet, of.OFPP_FLOOD)
 
     def forward_packet(self, event, out_port):
-        """Forward packet and install flow rule."""
+        """Install flow rule and forward packet."""
         msg = of.ofp_flow_mod()
         msg.match = of.ofp_match.from_packet(event.packet)
         msg.actions.append(of.ofp_action_output(port=out_port))
         msg.data = event.ofp  # Include the original packet
         self.connection.send(msg)
+
 
 
     def do_routing(self, packet, packet_in, port_on_switch, switch_id):
@@ -53,7 +54,7 @@ class Routing(object):
         # Allowing ARP Traffic to Fix Packet Losses
         if packet.find('arp'):
             log.info(f"Handling ARP packet from {packet.src} -> {packet.dst}")
-            self.mac_to_port[packet.src] = event.port  # Learn MAC address
+            self.mac_to_port[packet.srcmac] = event.port  # Store MAC instead of IP
             self.forward_packet(event, of.OFPP_FLOOD)  
             return
 
@@ -89,7 +90,7 @@ class Routing(object):
         if protocol == "ICMP":
             if src_subnet == dst_subnet or (src_subnet, dst_subnet) in allowed_icmp or (dst_subnet, src_subnet) in allowed_icmp:
                 log.info(f"Allowing ICMP Traffic {src_ip} -> {dst_ip}")
-                self.forward_packet(event, self.get_out_port(dst_ip))
+                self.forward_packet(event, self.get_out_port(dst_ip, event.dpid))
             else:
                 log.warning(f"Blocking ICMP {src_ip} -> {dst_ip}")
 
@@ -106,7 +107,7 @@ class Routing(object):
                 log.warning(f"Blocking TCP access to Exam Server from {src_ip}")
             elif src_subnet == dst_subnet or (src_subnet, dst_subnet) in allowed_tcp or (dst_subnet, src_subnet) in allowed_tcp:
                 log.info(f"Allowing TCP {src_ip} -> {dst_ip}")
-                self.forward_packet(event, self.get_out_port(dst_ip))
+                self.forward_packet(event, self.get_out_port(dst_ip, event.dpid))
             else:
                 log.warning(f"Blocking TCP {src_ip} -> {dst_ip}")
 
@@ -120,14 +121,14 @@ class Routing(object):
         if protocol == "UDP":
             if src_subnet == dst_subnet or (src_subnet, dst_subnet) in allowed_udp or (dst_subnet, src_subnet) in allowed_udp:
                 log.info(f"Allowing UDP {src_ip} -> {dst_ip}")
-                self.forward_packet(event, self.get_out_port(dst_ip))
+                self.forward_packet(event, self.get_out_port(dst_ip, event.dpid))
             else:
                 log.warning(f"Blocking UDP {src_ip} -> {dst_ip}")
 
         # RULE 4: Guest Can Use the Printer
         if src_subnet == "169.233.5" and dst_ip == "169.233.3.30":
             log.info(f"Allowing Guest to Access Printer: {src_ip} -> {dst_ip}")
-            self.forward_packet(event, self.get_out_port(dst_ip))
+            self.forward_packet(event, self.get_out_port(dst_ip, event.dpid))
             return
 
         # RULE 5: Default Deny (Drop All Other Traffic)
