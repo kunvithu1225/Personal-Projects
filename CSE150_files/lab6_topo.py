@@ -31,29 +31,29 @@ class MyTopology(Topo):
                    # ADDING HOSTS #
     
     # University Data Center /24
-    examServer = self.addHost('examServer', ip='169.233.2.1/24', mac="00:00:00:00:10:01", defaultRoute="via 169.233.2.1")
-    webServer = self.addHost('webServer', ip='169.233.2.2/24', mac="00:00:00:00:10:02", defaultRoute="via 169.233.2.1")
-    dnsServer = self.addHost('dnsServer', ip='169.233.2.3/24', mac="00:00:00:00:10:03", defaultRoute="via 169.233.2.1")
+    examServer = self.addHost('examServer', ip='169.233.2.1/24', mac="00:00:00:00:10:01", defaultRoute="via 169.233.2.254")
+    webServer = self.addHost('webServer', ip='169.233.2.2/24', mac="00:00:00:00:10:02", defaultRoute="via 169.233.2.254")
+    dnsServer = self.addHost('dnsServer', ip='169.233.2.3/24', mac="00:00:00:00:10:03", defaultRoute="via 169.233.2.254")
     
     # IT Department LAN
-    itWS = self.addHost('itWS', ip='169.233.1.10/24', mac="00:00:00:00:02:01", defaultRoute="via 169.233.1.1")
-    itBackup = self.addHost('itBackup', ip='169.233.1.30/24', mac="00:00:00:00:02:02", defaultRoute="via 169.233.1.1")
-    itPC = self.addHost('itPC', ip='169.233.1.20/24', mac="00:00:00:00:02:03", defaultRoute="via 169.233.1.1")
+    itWS = self.addHost('itWS', ip='169.233.1.10/24', mac="00:00:00:00:02:01", defaultRoute="via 169.233.1.254")
+    itBackup = self.addHost('itBackup', ip='169.233.1.30/24', mac="00:00:00:00:02:02", defaultRoute="via 169.233.1.254")
+    itPC = self.addHost('itPC', ip='169.233.1.20/24', mac="00:00:00:00:02:03", defaultRoute="via 169.233.1.254")
 
     # Faculty LAN /24
-    facultyWS = self.addHost('facultyWS', ip='169.233.3.10/24', mac="00:00:00:00:01:01", defaultRoute="via 169.233.3.1")
-    printer = self.addHost('printer', ip='169.233.3.30/24', mac="00:00:00:00:01:02", defaultRoute="via 169.233.3.1")
-    facultyPC = self.addHost('facultyPC', ip='169.233.3.40/24', mac="00:00:00:00:01:03", defaultRoute="via 169.233.3.1")
+    facultyWS = self.addHost('facultyWS', ip='169.233.3.10/24', mac="00:00:00:00:01:01", defaultRoute="via 169.233.3.254")
+    printer = self.addHost('printer', ip='169.233.3.30/24', mac="00:00:00:00:01:02", defaultRoute="via 169.233.3.254")
+    facultyPC = self.addHost('facultyPC', ip='169.233.3.40/24', mac="00:00:00:00:01:03", defaultRoute="via 169.233.3.254")
 
     # Student Housing LAN /24
-    studentPC1 = self.addHost('studentPC1', ip='169.233.4.1/24', mac="00:00:00:00:03:01", defaultRoute="via 169.233.4.1")
-    studentPC2 = self.addHost('studentPC2', ip='169.233.4.2/24', mac="00:00:00:00:03:02", defaultRoute="via 169.233.4.1")
-    labWS = self.addHost('labWS', ip='169.233.4.3/24', mac="00:00:00:00:03:03", defaultRoute="via 169.233.4.1")
+    studentPC1 = self.addHost('studentPC1', ip='169.233.4.1/24', mac="00:00:00:00:03:01", defaultRoute="via 169.233.4.254")
+    studentPC2 = self.addHost('studentPC2', ip='169.233.4.2/24', mac="00:00:00:00:03:02", defaultRoute="via 169.233.4.254")
+    labWS = self.addHost('labWS', ip='169.233.4.3/24', mac="00:00:00:00:03:03", defaultRoute="via 169.233.4.254")
 
     # Internet Hosts
-    trustedPC1 = self.addHost('trustedPC1', ip='212.26.59.102/24', mac="00:00:00:00:04:01", defaultRoute="via 212.26.59.1")
-    trustedPC2 = self.addHost('trustedPC2', ip='10.100.198.6/24', mac="00:00:00:00:04:02", defaultRoute="via 10.100.198.1")
-    guest = self.addHost('guest', ip='10.100.198.10/24', mac="00:00:00:00:05:01", defaultRoute="via 10.100.198.1")
+    trustedPC1 = self.addHost('trustedPC1', ip='212.26.59.102/24', mac="00:00:00:00:04:01", defaultRoute="via 169.233.5.254")
+    trustedPC2 = self.addHost('trustedPC2', ip='10.100.198.6/24', mac="00:00:00:00:04:02", defaultRoute="via 169.233.5.254")
+    guest = self.addHost('guest', ip='10.100.198.10/24', mac="00:00:00:00:05:01", defaultRoute="via 169.233.5.254")
 
                 # CONNECTING HOSTS TO SWITCHES
     
