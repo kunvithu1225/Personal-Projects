@@ -16,6 +16,9 @@ class MyTopology(Topo):
     s4 = self.addSwitch('s4') # -> Student Housing LAN
     s5 = self.addSwitch('s5') # -> Internet  
     
+    # Adding Router Host
+    router = self.addHost('r1', ip='169.233.1.254/24')
+
     # Switch 6 is new Core Router!
     s6 = self.addSwitch('s6')
 
