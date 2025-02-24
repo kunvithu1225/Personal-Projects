@@ -21,7 +21,7 @@ class Routing(object):
             "169.233.2": 2,  # Data Center
             "169.233.3": 3,  # Faculty
             "169.233.4": 4,  # Student Housing
-            "169.233.5": 5,  # Internet
+            "169.233.5": 5,  # Internet 
         }
         dst_subnet = ".".join(dst_ip.split(".")[:3])
         return routing_table.get(dst_subnet, of.OFPP_FLOOD)
