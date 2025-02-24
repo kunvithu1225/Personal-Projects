@@ -8,7 +8,7 @@ class MyTopology(Topo):
     def __init__(self):
         Topo.__init__(self)
 
-        # ADDING SWITCHES #
+        # ADDING SWITCHES  #
         s1 = self.addSwitch('s1')  # University Data Center
         s2 = self.addSwitch('s2')  # IT Department LAN
         s3 = self.addSwitch('s3')  # Faculty LAN
