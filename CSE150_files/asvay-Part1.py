@@ -9,11 +9,11 @@ clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverName, serverPort))
 
 # Send REGISTER message
-register_msg = "REGISTER user456"
+register_msg = "REGISTER client123"
 clientSocket.send(register_msg.encode())
 
 # Send BRIDGE message
-bridge_msg = "BRIDGE room789"
+bridge_msg = "BRIDGE client456"
 clientSocket.send(bridge_msg.encode())
 
 print("Messages Sent!")
