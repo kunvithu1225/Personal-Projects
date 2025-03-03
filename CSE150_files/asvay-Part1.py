@@ -1,29 +1,43 @@
-
-
-# Code from 2.7 TCPClient.py
+# TCPClient.py
 from socket import *
 
-serverName = ’servername’
+serverName = 'localhost'
 serverPort = 12000
+
+# Initializing TCP socket
 clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverName, serverPort))
-sentence = raw_input(’Input lowercase sentence:’)
-clientSocket.send(sentence.encode())
-modifiedSentence = clientSocket.recv(1024)
-print(’From Server: ’, modifiedSentence.decode())
+
+# Send REGISTER message
+register_msg = "REGISTER user456"
+clientSocket.send(register_msg.encode())
+
+# Send BRIDGE message
+bridge_msg = "BRIDGE room789"
+clientSocket.send(bridge_msg.encode())
+
+print("Messages Sent!")
 clientSocket.close()
 
-# Code from 2.7 TCPServer.py
+
+
+# TCPServer.py
 from socket import *
 
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
-serverSocket.bind((’’, serverPort))
+serverSocket.bind(('', serverPort))
 serverSocket.listen(1)
-print(’The server is ready to receive’)
+
+print('The server is ready to receive')
+      
 while True:
- connectionSocket, addr = serverSocket.accept()
- sentence = connectionSocket.recv(1024).decode()
- capitalizedSentence = sentence.upper()
- connectionSocket.send(capitalizedSentence.encode())
- connectionSocket.close()
+    connectionSocket, addr = serverSocket.accept()
+
+    while True:
+        sentence = connectionSocket.recv(1024).decode()
+        if not sentence: 
+            break
+        print(f"Received: {sentence}")
+    
+    connectionSocket.close()
